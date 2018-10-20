@@ -29,14 +29,14 @@ public class Program {
     @DELETE
     @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProgramModel deleteProgram(@PathParam("name") String name) {
+    public ProgramModel delete(@PathParam("name") String name) {
         return Database.programs.remove(name);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ProgramModel addProgram(ProgramModel program) {
+    public ProgramModel add(ProgramModel program) {
         return Database.programs.put(program.getName(), program);
     }
 
@@ -44,7 +44,7 @@ public class Program {
     @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ProgramModel updateProgram(@PathParam("name") String name, ProgramModel program) {
+    public ProgramModel update(@PathParam("name") String name, ProgramModel program) {
         return Database.programs.put(name, program);
     }
 }
