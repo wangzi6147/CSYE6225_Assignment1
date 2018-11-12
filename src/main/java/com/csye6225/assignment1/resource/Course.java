@@ -19,17 +19,17 @@ public class Course {
     }
 
     @GET
-    @Path("/{name}")
+    @Path("/{courseId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CourseModel get(@PathParam("name") String name) {
-        return cs.get(name);
+    public CourseModel get(@PathParam("courseId") String courseId) {
+        return cs.get(courseId);
     }
 
     @DELETE
-    @Path("/{name}")
+    @Path("/{courseId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CourseModel delete(@PathParam("name") String name) {
-        return cs.delete(name);
+    public CourseModel delete(@PathParam("courseId") String courseId) {
+        return cs.delete(courseId);
     }
 
     @POST
@@ -40,11 +40,11 @@ public class Course {
     }
 
     @PUT
-    @Path("/{name}")
+    @Path("/{courseId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CourseModel update(@PathParam("name") String name, CourseModel course) {
-        return cs.update(name, course);
+    public CourseModel update(@PathParam("courseId") String courseId, CourseModel course) {
+        return cs.update(course);
     }
 }
 

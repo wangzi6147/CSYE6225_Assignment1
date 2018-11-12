@@ -3,4 +3,4 @@ https://github.com/wangzi6147/CSYE6225_Assignment1
 Assignment1-env.fkmahjfmsh.us-east-2.elasticbeanstalk.com
 
 Postman collection:
-https://www.getpostman.com/collections/21f1d40a45cbefd264ed
+https://www.getpostman.com/collections/1ac166c8f6514360eada

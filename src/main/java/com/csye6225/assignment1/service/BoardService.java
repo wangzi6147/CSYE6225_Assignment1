@@ -5,56 +5,55 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.csye6225.assignment1.model.BoardModel;
 import com.csye6225.assignment1.model.DynamoDBConnector;
-import com.csye6225.assignment1.model.StudentModel;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class StudentService {
-
+public class BoardService {
     static DynamoDBConnector dynamoDb;
     DynamoDBMapper mapper;
 
-    public StudentService() {
+    public BoardService() {
         dynamoDb = new DynamoDBConnector();
         dynamoDb.init();
         mapper = new DynamoDBMapper(dynamoDb.getClient());
     }
 
-    public StudentModel delete(String id) {
-        StudentModel sm = get(id);
-        mapper.delete(sm, new DynamoDBDeleteExpression());
-        return sm;
+    public BoardModel delete(String id) {
+        BoardModel bm = get(id);
+        mapper.delete(bm, new DynamoDBDeleteExpression());
+        return bm;
     }
 
-    public StudentModel get(String id) {
+    public BoardModel get(String id) {
         HashMap<String, AttributeValue> eav = new HashMap<>();
         eav.put(":v1",  new AttributeValue().withS(id));
 
-        DynamoDBQueryExpression<StudentModel> queryExpression = new DynamoDBQueryExpression<StudentModel>()
-                .withIndexName("studentId-index")
-                .withKeyConditionExpression("studentId = :v1")
+        DynamoDBQueryExpression<BoardModel> queryExpression = new DynamoDBQueryExpression<BoardModel>()
+                .withIndexName("boardId-index")
+                .withKeyConditionExpression("boardId = :v1")
                 .withConsistentRead(false)
                 .withExpressionAttributeValues(eav);
 
-        List<StudentModel> list =  mapper.query(StudentModel.class, queryExpression);
+        List<BoardModel> list =  mapper.query(BoardModel.class, queryExpression);
         if (list.size() == 0) return null;
         return list.get(0);
     }
 
-    public List<StudentModel> getAll(){
-        return mapper.scan(StudentModel.class, new DynamoDBScanExpression());
+    public List<BoardModel> getAll(){
+        return mapper.scan(BoardModel.class, new DynamoDBScanExpression());
     }
 
-    public StudentModel add(StudentModel sm) {
-        mapper.save(sm);
-        return sm;
+    public BoardModel add(BoardModel bm) {
+        mapper.save(bm);
+        return bm;
     }
 
-    public StudentModel update(StudentModel sm) {
-        delete(sm.getStudentId());
-        mapper.save(sm);
-        return sm;
+    public BoardModel update(BoardModel bm) {
+        delete(bm.getBoardId());
+        mapper.save(bm);
+        return bm;
     }
 }

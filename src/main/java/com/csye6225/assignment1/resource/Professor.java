@@ -19,17 +19,17 @@ public class Professor {
     }
 
     @GET
-    @Path("/{name}")
+    @Path("/{professorId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProfessorModel get(@PathParam("name") String name) {
-        return ps.get(name);
+    public ProfessorModel get(@PathParam("professorId") String professorId) {
+        return ps.get(professorId);
     }
 
     @DELETE
-    @Path("/{name}")
+    @Path("/{professorId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProfessorModel delete(@PathParam("name") String name) {
-        return ps.delete(name);
+    public ProfessorModel delete(@PathParam("professorId") String professorId) {
+        return ps.delete(professorId);
     }
 
     @POST
@@ -40,11 +40,11 @@ public class Professor {
     }
 
     @PUT
-    @Path("/{name}")
+    @Path("/{professorId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ProfessorModel update(@PathParam("name") String name, ProfessorModel professor) {
-        return ps.update(name, professor);
+    public ProfessorModel update(@PathParam("professorId") String professorId, ProfessorModel professor) {
+        return ps.update(professor);
     }
 }
 

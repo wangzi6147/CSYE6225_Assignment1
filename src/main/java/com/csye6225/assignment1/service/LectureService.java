@@ -1,6 +1,6 @@
 package com.csye6225.assignment1.service;
 
-import com.csye6225.assignment1.Database;
+import com.csye6225.assignment1.model.Database;
 import com.csye6225.assignment1.model.LectureModel;
 
 import java.util.ArrayList;

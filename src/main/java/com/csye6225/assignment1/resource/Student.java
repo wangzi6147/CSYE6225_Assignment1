@@ -12,22 +12,24 @@ public class Student {
 
     StudentService ss = new StudentService();
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<StudentModel> getAll() {
         return ss.getAll();
     }
 
     @GET
-    @Path("/{name}")
+    @Path("/{studentId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public StudentModel get(@PathParam("name") String name) {
-        return ss.get(name);
+    public StudentModel get(@PathParam("studentId") String studentId) {
+        return ss.get(studentId);
     }
 
     @DELETE
-    @Path("/{name}")
+    @Path("/{studentId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public StudentModel delete(@PathParam("name") String name) {
-        return ss.delete(name);
+    public StudentModel delete(@PathParam("studentId") String studentId) {
+        return ss.delete(studentId);
     }
 
     @POST
@@ -38,10 +40,10 @@ public class Student {
     }
 
     @PUT
-    @Path("/{name}")
+    @Path("/{studentId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public StudentModel update(@PathParam("name") String name, StudentModel student) {
-        return ss.update(name, student);
+    public StudentModel update(@PathParam("studentId") String studentId, StudentModel student) {
+        return ss.update(student);
     }
 }
