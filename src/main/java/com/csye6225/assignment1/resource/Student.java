@@ -46,4 +46,12 @@ public class Student {
     public StudentModel update(@PathParam("studentId") String studentId, StudentModel student) {
         return ss.update(student);
     }
+
+    @POST
+    @Path("/{studentId}/register")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void register(@PathParam("studentId") String studentId, String courseId) {
+        ss.register(studentId, courseId);
+    }
 }

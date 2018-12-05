@@ -1,10 +1,15 @@
 package com.csye6225.assignment1.service;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDeleteExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.model.SubscribeRequest;
+import com.csye6225.assignment1.model.CourseModel;
 import com.csye6225.assignment1.model.DynamoDBConnector;
 import com.csye6225.assignment1.model.StudentModel;
 
@@ -56,5 +61,22 @@ public class StudentService {
         delete(sm.getStudentId());
         mapper.save(sm);
         return sm;
+    }
+
+    public void register(String studentId, String courseId) {
+        CourseService cs = new CourseService();
+        CourseModel courseModel = cs.get(courseId);
+        StudentModel studentModel = get(studentId);
+
+
+        //create a new SNS client and set endpoint
+        AmazonSNSClient snsClient = new AmazonSNSClient();
+        snsClient.setRegion(Region.getRegion(Regions.US_EAST_2));
+
+        String topicArn = courseModel.getTopic();
+
+        //subscribe to an SNS topic
+        SubscribeRequest subRequest = new SubscribeRequest(topicArn, "email", studentModel.getEmailId());
+        snsClient.subscribe(subRequest);
     }
 }
