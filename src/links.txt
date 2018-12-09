@@ -1,6 +1,64 @@
+EBS repo:
 https://github.com/wangzi6147/CSYE6225_Assignment1
 
+Lambda repo:
+https://github.com/wangzi6147/lambda
+
+EBS link:
 Assignment1-env.fkmahjfmsh.us-east-2.elasticbeanstalk.com
 
-Postman collection:
+Postman Collections:
+Assignment1:
+https://www.getpostman.com/collections/21f1d40a45cbefd264ed
+Assignment2:
 https://www.getpostman.com/collections/1ac166c8f6514360eada
+Assignment3:
+https://www.getpostman.com/collections/a561e32dca74b0bfc2cd
+Assignment4:
+https://www.getpostman.com/collections/5c39f7d80a70c4816230
+
+Workflow definition:
+
+{
+  "StartAt": "IsNew",
+  "States": {
+    "IsNew": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Not": {
+            "Variable": "$.boardId",
+            "StringEquals": ""       
+          },
+          "Next": "ToTheEnd"  
+        }
+      ],
+      "Default": "IsSeminars"
+    },
+    "ToTheEnd": {
+      "Type": "Pass",
+      "End": true
+    },
+    "IsSeminars": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.department",
+          "StringEquals": "Seminars",
+          "Next": "ToTheEnd"  
+        }
+      ],
+      "Default": "GenerateRegistrar"
+    },
+    "GenerateRegistrar": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-2:874029527438:function:GenerateRegistrar",
+      "Next": "GenerateBoard"
+    },
+    "GenerateBoard": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-2:874029527438:function:GenerateBoard",
+      "End": true
+    }
+  }
+}

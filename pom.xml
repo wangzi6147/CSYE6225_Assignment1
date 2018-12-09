@@ -7,7 +7,7 @@
     <groupId>com.csye6225.assignment1</groupId>
     <artifactId>assignment1</artifactId>
     <packaging>war</packaging>
-    <version>1.2</version>
+    <version>1.4</version>
     <build>
         <plugins>
             <plugin>
